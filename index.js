@@ -1,17 +1,41 @@
-const express = require("express");
+const dns = require("node:dns");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
+const express = require("express");
+const dotenv = require("dotenv");
+dotenv.config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
-const uri =
-  "mongodb+srv://Tiles_Gallery:<db_password>@cluster0.togxpm6.mongodb.net/?appName=Cluster0";
+const uri = process.env.MONGODB_URI;
 
 const app = express();
-const port = 5000;
+const PORT = process.env.PORT;
 
-app.get("/", (req, res) => {
-  res.send("Server is running fine!");
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+async function run() {
+  try {
+    await client.connect();
+    await client.db("admin").command({ ping: 1 });
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!",
+    );
+  } finally {
+    await client.close();
+  }
+}
+run().catch(console.dir);
+
+app.get("/", (req, res) => {
+  res.send("Drivefleet server is running fine!");
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
