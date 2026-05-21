@@ -461,7 +461,7 @@ async function connectDatabase() {
     return;
   }
   try {
-    await client.connect();
+    // await client.connect();
     db = client.db("drivefleet");
     dbReady = true;
     console.log("MongoDB connected (database: drivefleet)");
