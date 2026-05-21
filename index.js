@@ -3,6 +3,7 @@ dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 dotenv.config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
@@ -10,6 +11,9 @@ const uri = process.env.MONGODB_URI;
 
 const app = express();
 const PORT = process.env.PORT;
+
+app.use(cors());
+app.use(express.json());
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -22,12 +26,24 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
+
+    const db = client.db("drivefleet");
+
+    const carsCollection = db.collection("cars");
+
+    app.post("/cars", async (req, res) => {
+      const car = req.body;
+      console.log(car);
+      const result = await carsCollection.insertOne(car);
+      res.json(result);
+    });
+
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!",
     );
   } finally {
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);
