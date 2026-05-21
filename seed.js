@@ -1,7 +1,3 @@
-/**
- * Run once: node seed.js
- * Seeds sample cars when the collection is empty.
- */
 require("dotenv").config();
 const { MongoClient } = require("mongodb");
 
@@ -10,10 +6,12 @@ const samples = [
     carName: "Toyota Premio",
     dailyRentPrice: 4500,
     carType: "Sedan",
-    imageUrl: "https://images.unsplash.com/photo-1621007947382-bcb904ee758f?w=800",
+    imageUrl:
+      "https://images.unsplash.com/photo-1621007947382-bcb904ee758f?w=800",
     seatCapacity: 5,
     pickupLocation: "Dhaka, Gulshan",
-    description: "Comfortable sedan with AC, perfect for city trips and airport runs.",
+    description:
+      "Comfortable sedan with AC, perfect for city trips and airport runs.",
     availability: "available",
     ownerEmail: "demo@drivefleet.com",
     ownerName: "DriveFleet Demo",
@@ -24,7 +22,8 @@ const samples = [
     carName: "Mitsubishi Pajero Sport",
     dailyRentPrice: 8500,
     carType: "SUV",
-    imageUrl: "https://images.unsplash.com/photo-1519641471654-76ce5427e686?w=800",
+    imageUrl:
+      "https://images.unsplash.com/photo-1519641471654-76ce5427e686?w=800",
     seatCapacity: 7,
     pickupLocation: "Chittagong",
     description: "Spacious SUV for family tours and hill tracks.",
@@ -66,7 +65,8 @@ const samples = [
     carName: "Mercedes E-Class",
     dailyRentPrice: 18000,
     carType: "Luxury",
-    imageUrl: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800",
+    imageUrl:
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800",
     seatCapacity: 5,
     pickupLocation: "Dhaka, Banani",
     description: "Executive luxury sedan for business and VIP travel.",
@@ -80,7 +80,8 @@ const samples = [
     carName: "Nissan Leaf",
     dailyRentPrice: 5500,
     carType: "Electric",
-    imageUrl: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800",
+    imageUrl:
+      "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800",
     seatCapacity: 5,
     pickupLocation: "Dhaka, Uttara",
     description: "Quiet electric hatchback for eco-friendly city driving.",
@@ -94,7 +95,8 @@ const samples = [
     carName: "Suzuki Swift",
     dailyRentPrice: 3200,
     carType: "Hatchback",
-    imageUrl: "https://images.unsplash.com/photo-1494976688679-d504f380cba4?w=800",
+    imageUrl:
+      "https://images.unsplash.com/photo-1494976688679-d504f380cba4?w=800",
     seatCapacity: 4,
     pickupLocation: "Rajshahi",
     description: "Compact hatchback, easy parking and low daily cost.",

@@ -98,7 +98,6 @@ app.get("/", (req, res) => {
   });
 });
 
-// ——— Auth ———
 app.post("/auth/register", requireDb, async (req, res) => {
   const { users } = getCollections();
   try {
@@ -236,7 +235,6 @@ app.get("/auth/me", verifyToken, requireDb, async (req, res) => {
   });
 });
 
-// ——— Cars ———
 app.get("/cars", requireDb, async (req, res) => {
   const { cars } = getCollections();
   try {
@@ -398,7 +396,6 @@ app.delete("/cars/:id", verifyToken, requireDb, async (req, res) => {
   }
 });
 
-// ——— Bookings ———
 app.post("/bookings", verifyToken, requireDb, async (req, res) => {
   const { cars, bookings } = getCollections();
   try {
@@ -442,7 +439,7 @@ app.get("/bookings/my", verifyToken, requireDb, async (req, res) => {
   try {
     const result = await bookings
       .find({ userEmail: req.user.email })
-      .sort({ bookingDate: -2 })
+      .sort({ bookingDate: -1 })
       .toArray();
     res.json(result);
   } catch (err) {
