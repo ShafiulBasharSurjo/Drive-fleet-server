@@ -468,7 +468,7 @@ async function connectDatabase() {
   } catch (err) {
     console.error("MongoDB connection failed:", err.message);
     console.error(
-      "API is running but database routes return 503 until MongoDB connects.",
+      "API is running but database routes will keep returning 503 until MongoDB connects.",
     );
   }
 }
