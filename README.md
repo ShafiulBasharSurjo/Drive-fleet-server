@@ -1,42 +1,21 @@
-# DriveFleet API
+# 🛠️ DriveFleet API Engine
 
-Express + MongoDB backend for the DriveFleet car rental platform.
+[![Express Engine](https://img.shields.io/badge/Express-4.21-lightgrey?style=flat-square&logo=express)](https://expressjs.com/)
+[![MongoDB Cloud](https://img.shields.io/badge/MongoDB-🧬-green?style=flat-square&logo=mongodb)](https://www.mongodb.com/)
+[![JSON Web Tokens](https://img.shields.io/badge/Authentication-JWT_Cookies-blueviolet?style=flat-square&logo=json-web-tokens)](https://jwt.io/)
+[![Node Version](https://img.shields.io/badge/Node.js->=18.x-339933?style=flat-square&logo=node.js)](https://nodejs.org/)
 
-## Environment
+This is the full-stack, high-performance RESTful API engine powering **DriveFleet**, built using Node.js, Express, and MongoDB. It implements secure JWT lifecycle handshakes across HTTP-only cookies, automated MongoDB optimization aggregation parameters, and social auth parsing.
 
-Copy `.env.example` to `.env` and configure:
+---
 
-| Variable | Description |
-|----------|-------------|
-| `PORT` | Server port (default 5000) |
-| `MONGODB_URI` | MongoDB connection string |
-| `JWT_SECRET` | Secret for signing JWT cookies |
-| `CLIENT_URL` | Frontend origin for CORS |
-| `GOOGLE_CLIENT_ID` | Google OAuth client ID for token verification |
+## 🏗️ System Pipeline Architecture
 
-## Scripts
-
-```bash
-npm install
-npm run dev    # development with --watch
-npm start      # production
+```mermaid
+graph TD
+    Client[Next.js Frontend Client] -->|Secure Requests with Credentials| CORS{CORS Origin Guard}
+    CORS -->|Authorized Route Check| JWT[JWT Cookie Verification Layer]
+    JWT -->|Valid Session Token| Core[Express Route Handlers]
+    JWT -->|Invalid / Missing| Err[401 Unauthorized Response]
+    Core <-->|Atomic Transactions / Mongoose| DB[(MongoDB Atlas Cloud)]
 ```
-
-## API Routes
-
-| Method | Route | Auth | Description |
-|--------|-------|------|-------------|
-| POST | `/auth/register` | | Create account |
-| POST | `/auth/login` | | Login, set cookie |
-| POST | `/auth/google` | | Google ID token login |
-| POST | `/auth/logout` | | Clear cookie |
-| GET | `/auth/me` | ✓ | Current user |
-| GET | `/cars` | | List cars (`search`, `type` query) |
-| GET | `/cars/featured` | | Top 6 available cars |
-| GET | `/cars/my` | ✓ | Owner's cars |
-| GET | `/cars/:id` | | Single car |
-| POST | `/cars` | ✓ | Add car |
-| PATCH | `/cars/:id` | ✓ | Update own car |
-| DELETE | `/cars/:id` | ✓ | Delete own car |
-| POST | `/bookings` | ✓ | Create booking (`$inc` count) |
-| GET | `/bookings/my` | ✓ | User bookings |
