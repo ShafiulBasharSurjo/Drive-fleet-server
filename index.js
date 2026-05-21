@@ -31,10 +31,29 @@ async function run() {
 
     const carsCollection = db.collection("cars");
 
+    app.get("/cars", async (req, res) => {
+      try {
+        const cursor = carsCollection.find();
+        const result = await cursor.toArray();
+        res.json(result);
+      } catch (error) {
+        console.error("Error fetching cars:", error);
+        res.status(500).json({ error: "Internal server error" });
+      }
+    });
+
     app.post("/cars", async (req, res) => {
       const car = req.body;
       console.log(car);
       const result = await carsCollection.insertOne(car);
+      res.json(result);
+    });
+
+    app.get("/cars/:id", async (req, res) => {
+      const { id } = req.params;
+
+      const result = await carsCollection.findOne({ _id: new ObjectId(id) });
+
       res.json(result);
     });
 
